@@ -1,0 +1,17 @@
+{
+  "strategy": "PPO",
+  "episodes": 100,
+  "escapes": 67,
+  "captures": 25,
+  "timeouts": 8,
+  "escape_rate": 67.0,
+  "capture_rate": 25.0,
+  "timeout_rate": 8.0,
+  "average_reward": 37.1,
+  "average_steps": 289.71,
+  "comparison": {
+    "PPO": 67.0,
+    "SCRIPTED": 55.0,
+    "RANDOM": 23.0
+  }
+}

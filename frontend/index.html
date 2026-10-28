@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pursuit-Evasion AI | Research Simulation</title>
+    <link rel="stylesheet" href="/frontend/style.css?v=3">
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div>
+                    <h1>PURSUIT<span>�</span>EVASION AI</h1>
+                    <p>ADAPTIVE 2D REINFORCEMENT LEARNING SIMULATION</p>
+                </div>
+            </div>
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <span>SYSTEM ONLINE</span>
+            </div>
+        </header>
+
+        <main>
+
+            <section class="hero">
+                <div>
+                    <div class="eyebrow">RESEARCH ENVIRONMENT / 2D SIMULATION</div>
+                    <h2>Adaptive Pursuit-Evasion<br><strong>Scenario Laboratory</strong></h2>
+                    <p class="hero-text">
+                        Compare intelligent evasion strategies inside a dynamic obstacle-aware
+                        environment using deterministic pursuit and reinforcement learning.
+                    </p>
+                </div>
+
+                <div class="hero-badge">
+                    <div class="badge-label">ACTIVE MODEL</div>
+                    <div class="badge-value" id="strategy">RANDOM</div>
+                </div>
+            </section>
+
+            <section class="control-panel">
+
+                <div class="control-title">
+                    <span class="section-number">01</span>
+                    <div>
+                        <h3>SIMULATION CONTROL</h3>
+                        <p>Select an agent strategy and control the scenario.</p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="select-wrap">
+                        <label for="strategySelect">EVADER STRATEGY</label>
+                        <select id="strategySelect">
+                            <option value="RANDOM">RANDOM</option>
+                            <option value="SCRIPTED">SCRIPTED</option>
+                            <option value="PPO">PPO</option>
+                        </select>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="startBtn" class="btn btn-primary">
+                            <span class="btn-icon"></span> START
+                        </button>
+
+                        <button id="pauseBtn" class="btn">
+                            <span class="btn-icon"></span> PAUSE
+                        </button>
+
+                        <button id="continueBtn" class="btn">
+                            <span class="btn-icon"></span> CONTINUE
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="workspace">
+
+                <div class="simulation-card">
+
+                    <div class="card-header">
+                        <div>
+                            <span class="card-kicker">LIVE ENVIRONMENT</span>
+                            <h3>TACTICAL SIMULATION VIEW</h3>
+                        </div>
+
+                        <div class="live-indicator">
+                            <span></span>
+                            LIVE
+                        </div>
+                    </div>
+
+                    <div class="canvas-wrap">
+                        <div class="canvas-grid"></div>
+                        <canvas id="simulationCanvas" width="800" height="600"></canvas>
+
+                        <div class="canvas-overlay top-left">
+                            <span>ENVIRONMENT</span>
+                            <strong>800 � 600</strong>
+                        </div>
+
+                        <div class="canvas-overlay bottom-right">
+                            <span>MODE</span>
+                            <strong>2D / CONTINUOUS</strong>
+                        </div>
+                    </div>
+
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span class="legend-dot blue"></span>
+                            <span>BLUE PURSUER</span>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot red"></span>
+                            <span>RED EVADER</span>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-block obstacle"></span>
+                            <span>OBSTACLE</span>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-zone"></span>
+                            <span>SAFE ZONE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="metrics-panel">
+
+                    <div class="metrics-header">
+                        <span class="card-kicker">TELEMETRY</span>
+                        <h3>LIVE METRICS</h3>
+                    </div>
+
+                    <div class="metric-card highlight">
+                        <div class="metric-label">ACTIVE STRATEGY</div>
+                        <div class="metric-value strategy-value" id="strategy">RANDOM</div>
+                        <div class="metric-line"></div>
+                    </div>
+
+                    <div class="metric-grid">
+
+                        <div class="metric-card">
+                            <div class="metric-label">SIMULATION STEP</div>
+                            <div class="metric-value" id="step">0</div>
+                            <div class="metric-unit">ITERATIONS</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">STATUS</div>
+                            <div class="metric-value status-value" id="status">RUNNING</div>
+                            <div class="metric-unit">SYSTEM STATE</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">BLUE DISTANCE</div>
+                            <div class="metric-value">
+                                <span id="blueDistance">0</span>
+                            </div>
+                            <div class="metric-unit">PIXELS</div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">SAFE ZONE DISTANCE</div>
+                            <div class="metric-value">
+                                <span id="safeDistance">0</span>
+                            </div>
+                            <div class="metric-unit">PIXELS</div>
+                        </div>
+
+                    </div>
+
+                    <div class="research-card">
+                        <div class="research-icon">AI</div>
+                        <div>
+                            <div class="research-title">REINFORCEMENT LEARNING</div>
+                            <p>PPO policy actively controls the Red evader when selected.</p>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-card-header">
+                            <span>ENGINE STATUS</span>
+                            <span class="status-online">ONLINE</span>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Environment</span>
+                            <strong>READY</strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Obstacle System</span>
+                            <strong>ACTIVE</strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>Pursuit Controller</span>
+                            <strong>ACTIVE</strong>
+                        </div>
+
+                        <div class="status-row">
+                            <span>RL Policy</span>
+                            <strong>AVAILABLE</strong>
+                        </div>
+                    </div>
+
+                </aside>
+
+            </section>
+
+            <section class="research-footer">
+
+                <div>
+                    <span class="footer-label">PROJECT</span>
+                    <strong>Reinforcement Learning-Based Adaptive AI Agents</strong>
+                </div>
+
+                <div>
+                    <span class="footer-label">ENVIRONMENT</span>
+                    <strong>Constructive Tactical Scenario Simulation</strong>
+                </div>
+
+                <div>
+                    <span class="footer-label">AGENT</span>
+                    <strong>Red Evader / PPO</strong>
+                </div>
+
+                <div class="footer-version">
+                    <span>SIMULATION ENGINE</span>
+                    <strong>v1.0</strong>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <span>PURSUIT�EVASION AI RESEARCH PLATFORM</span>
+            <span>ACADEMIC 2D SIMULATION � NON-OPERATIONAL</span>
+        </footer>
+
+    </div>
+
+    <script src="/frontend/app.js?v=2"></script>
+</body>
+</html>
+
